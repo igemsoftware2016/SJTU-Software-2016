@@ -1,0 +1,60 @@
+Database Name : IGEM
+
+Person:
+		Student_ID
+		Student_Name
+		Gender
+		Age
+		Area_ID
+		Bitrhday
+		Levels
+		Team_ID
+		Account_Number
+		IGEM_Password
+
+Teams:
+		Team_ID
+		Team_Name
+		Captain_ID
+		Member_Num
+		Area_ID
+		School_ID
+		Project_ID
+		Year
+
+Areas:
+		Area_ID
+		//Region
+		Country
+		##Provice
+		##City
+		##Coordinate_x
+		##Coordinate_y
+
+Projects:
+		Project_ID
+		Project_Name
+		Project_Desc
+		Classification
+
+Conferences:
+		Conference_ID
+		Conference_Name
+		Area_ID
+		Start_time
+		End_time
+		Application_period
+		Hostteam_ID
+		Upper_limit
+		Tags
+
+Schools:
+		School_ID
+		School_Name
+		Team_Num
+		Area_ID
+
+Join_Informations:
+		Conference_ID
+		Student_ID
+			
