@@ -15,11 +15,12 @@
 
     if($type == "update") {
         $CAS = $_GET["CAS"] ? $_GET["CAS"] : "CAS";
+        $No_ = $_GET["No_"] ? $_GET["No_"] : "41";
         $From_Team_ID = $_GET["From_Team_ID"] ? $_GET["From_Team_ID"] : "From_Team_ID";
-        $Quantity = $_GET["Quantity"] ? $_GET["Quantity"] : "Quantity";
-        $Remaing_Available = $_GET["Remaing_Available"] ? $_GET["Remaing_Available"] : "Remaing_Available";
+        $Quantity = $_GET["Quantity"] ? $_GET["Quantity"] : "wo shi shuju  zhende ";
+        $Remaing_Available = $_GET["Remaing_Available"] ? $_GET["Remaing_Available"] : "wo shi ren ";
         $Expiration_Time = $_GET["Expiration_Time"] ? $_GET["Expiration_Time"] : "Expiration_Time";
-        $sql = "UPDATE Reagent SET CAS='{$CAS}' , From_Team_ID='{$From_Team_ID}' , Quantity='{$Quantity}' , Remaining_Available='{$Remaing_Available}' , Expiration_Time='{$Expiration_Time}' WHERE CAS='{$CAS}' and From_Team_ID='{$From_Team_ID}'";
+        $sql = "UPDATE Reagent SET CAS='{$CAS}' , Quantity='{$Quantity}' , Remaining_Available='{$Remaing_Available}' , Expiration_Time='{$Expiration_Time}' WHERE No_={$No_}";
         if($db->query($sql) === TRUE) {
             echo '{"status":"ok" , "message":"update操作成功"}';
         } else {

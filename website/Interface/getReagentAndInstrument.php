@@ -68,7 +68,12 @@
     }
     // echo $resStr."<br>";
     $resStr = substr($resStr , 0 , -1);
-    echo $resStr."]";
+	if(strlen($resStr) == 0){
+                echo '{"status":"error" , "info":"暂时没数据"}';
+        } else {
+                echo $resStr."]";
+        }  
+//  echo $resStr."]";
     } else if ($type == "instrument") {  // 查询仪器信息
         $sql = "select * from Instrument where From_Team_ID={$teamID}";
         if (!$result=$db->query($sql))
@@ -115,8 +120,14 @@
             $resStr = $resStr.'{"No_":"'.$No_.'" , "From_Team_ID":"'.$From_Team_ID.'" , "Model":"'.$Model.'" , "Manager":"'.$Manager.'" , "Telephone_Number":"'.$Telephone_Number.'" , "Available_Number":"'.$Available_Number.'" , "Instrument_use_record":'.$Instrument_use_record.'},';
 
         }
-        // echo $resStr."<br>";
+
+//	echo "我是人";        // echo $resStr."<br>";
         $resStr = substr($resStr , 0 , -1);
-        echo $resStr."]";
+	if(strlen($resStr) == 0){
+		echo '{"status":"error" , "info":"暂时没数据"}';
+	} else {
+		echo $resStr."]";
+	}
+        //echo $resStr."]";
     }
 ?>

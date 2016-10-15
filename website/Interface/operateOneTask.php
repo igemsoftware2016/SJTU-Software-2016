@@ -38,6 +38,7 @@ header('Access-Control-Allow-Methods:GET');
     } else if ($type == "add") {
         $description = $_GET["description"] ? $_GET["description"] : "description";
         $From_Team_ID = $_GET["team_ID"] ? $_GET["team_ID"] : "team_ID";
+	//echo "我是时间".$startTime;
         $sql = "INSERT INTO Tasks (From_Team_ID, Issue , Start_time , End_time , Participants , Task_Status , Tag , Discription) VALUES ('{$From_Team_ID}', '{$issue}' , '{$startTime}' , '{$endTime}' , '{$participants}' , '{$status}' , '{$tag}' , '{$description}')";
         if($db->query($sql) === TRUE) {
             echo '{"status":"ok" , "message":"add操作成功"}';

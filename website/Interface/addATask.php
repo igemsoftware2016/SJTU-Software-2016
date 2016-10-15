@@ -21,7 +21,8 @@
 
 
     // $sql = "INSERT INTO Tasks (Task_ID , From_Team_ID, Issue, Start_time , End_time , Participants , Task_Status , tag) VALUES (11 , {$teamID}, '{$issue}', {$startTime} , {$endTime} , '$participants' , 28 , '{$tag}')";
-    $sql = "INSERT INTO Tasks (From_Team_ID, Issue, Start_time , End_time , Participants , tag , Discription) VALUES ({$teamID}, '{$issue}', {$startTime} , {$endTime} , '$participants' , '{$tag}' , '{$discription}')";
+//	echo "我是开始时间".$startTime;
+    $sql = "INSERT INTO Tasks (From_Team_ID, Issue, Start_time , End_time , Participants , tag , Discription) VALUES ({$teamID}, '{$issue}','{$startTime}' , '{$endTime}' , '$participants' , '{$tag}' , '{$discription}')";
 
     if ($db->query($sql) === TRUE) {
         echo '{"status":"ok"}';
