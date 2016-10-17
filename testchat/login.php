@@ -206,6 +206,8 @@
             }
             
         </script>
+ 
+
 <?php
 if(!isset($_POST['submit'])){
     exit('invalid visit!');
@@ -214,20 +216,12 @@ $username = $_POST['username'];
 $password = $_POST['password'];
 echo $username;
 echo $password;
-$output=shell_exec("python /home/ubuntu/imap/src/basic/account.py $username $password 2>&1");
-echo "@@@@@@@@@@@@@@@@@@@";
-echo($output);
-echo "-------------------------------------------";
-if ($output[0]==True){
-    echo "1111";
+exec("python /home/ubuntu/imap/src/basic/account.py $username $password",$output,$return_val);
+if ($output[0]==TRUE){
     echo "TRUE";
-	exec("python /home/ubuntu/imap/src/basic/SignNum.py $username",$mykey,$return_val);
-	print_r($mykey);
-	echo $return_val;
-    echo "<script type='text/javascript'>independentModeLogin($username,$mykey);</script>";
+    echo "<script type='text/javascript'>independentModeLogin($username,$password);</script>";
 }
-if ($output[0]==False){
-    echo "2222";
+if ($output[0]==FALSE){
     echo "FALSE";
 }
 ?>

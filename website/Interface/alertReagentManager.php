@@ -24,11 +24,15 @@
     $RemainingAviilable = $_GET["RemainingAviilable"] ? $_GET["RemainingAviilable"] : "RemainingAviilable";
     $Tag = $_GET["Tag"] ? $_GET["Tag"] : "Tag";
 
+    $From_Team_ID = $_GET["From_Team_ID"] ? $_GET["From_Team_ID"] : "From_Team_ID";
 
-    $sql = "UPDATE Reagent_use_record SET PN='{$PN}' , Art_No={$Art_No} , Location='{$Location}' , Size={$Size} , Tag='{$Tag}' WHERE From_Team_ID={$From_Team_ID} and CAS={$CAS}";
+    $sql = "UPDATE Reagent_use_record SET PN='{$PN}' , Art_No={$Art_No} , Location='{$Location}' , Size={$Size} , Tag='{$Tag}' WHERE From_Team_ID={$From_Team_ID} AND CAS={$CAS}";
+
+    //$sql = "UPDATE Reagent_use_record SET PN='{$PN}' , Art_No={$Art_No} , Location='{$Location}' , Size={$Size} , Tag='{$Tag}' WHERE From_Team_ID='{$From_Team_ID}' and CAS='{$CAS}'";
     if($db->query($sql) === TRUE) {
         // echo '{"status":"ok" , "message":"update操作成功"}';
-        $sql = "UPDATE Reagent SET Remaining_Available='{$RemainingAviilable}' , Expiration_Time={$ExpirationTime} , WHERE No_={$No_}";
+        $sql = "UPDATE Reagent SET Remaining_Available='{$RemainingAviilable}' ,Expiration_Time='{$ExpirationTime}' , Quantity='{$Quantity}' WHERE No_={$No_}";
+	//$sql = "UPDATE Reagent SET Remaining_Available='{$RemainingAviilable}' , Expiration_Time='{$ExpirationTime}' WHERE No_={$No_}";
         if($db->query($sql) === TRUE) {
             echo '{"status":"ok" , "message":"update操作成功"}';
         } else {
