@@ -1,4 +1,11 @@
 $(document).ready(function() {  
+
+    //判断登陆逻辑
+    // var selfLocation = window.location;
+    // var login = localStorage.login;
+    // if (!login) {
+    //     location.replace(selfLocation.protocol + '//' + selfLocation.host + '/imap2/website/login.html');
+    // }
   
     /* ------------------------------------------------------
      * Mobile Menu
@@ -69,11 +76,6 @@ $(document).ready(function() {
         }
     });
 
-    $('.show-search-left li').on('click', function() {
-        $(this).siblings().removeClass('active-li');
-        $(this).addClass('active-li');
-
-    });
 
     var teamId = null;
     
@@ -89,6 +91,7 @@ $(document).ready(function() {
             url: 'http://www.sjtuimap.com/Interface/getTeamInfo.php',
             type: 'GET',
             success: function(data) {
+                window.participant = data.MyTeam && data.MyTeam.Members;
                 $('.team-table').html(juicer($('#team-info-tpl').html(), {data: data.MyTeam}));
                 teamId = data.MyTeam.teamID;
 
@@ -114,11 +117,20 @@ $(document).ready(function() {
                 })
 
                 $('.file').on('change', function() {
-                    $('.submit').click();
+                    $('.submit').submit();
                 });
+                //  $('iframe').on('load', function() {
+                //     var responseText = $('iframe')[0].contentDocument.body.textContent;
+                //     var responseData = JSON.parse(responseText) || {};
+                //     if (responseData.status == "ok" || responseData.code == 200) {
+                //         console.log("成功");
+                //     } else {
+                //         console.log("失败");
+                //     }
+                //     console.log(responseText);
+                // });
 
-
-                $('.submit').on('click', function(){
+                $('.submit').on('submit', function(){
                     setTimeout(function() {
                         location.reload();
                     }, 2000)
@@ -186,22 +198,39 @@ $(document).ready(function() {
                     // console
                     $('.task-table tbody').html(juicer($('#task-tpl').html(), {data: JSON.parse(data)}));
 
-                    var participants = $('.task-group').html();
-                    var particiArr = (participants && participants.split(',')) || [];
+                    var participants = participant;
+                    var particiArr = participants || [];
                     var particiHtml = '<li>';
                     for (var i = 0;i < particiArr.length; i ++) {
-                        particiHtml += particiArr[i] + '</li><li>';
+                        particiHtml += particiArr[i] && particiArr[i].name + '</li><li>';
                     }
-                    $('#myModal .show-search-left ul').html(particiHtml);
+
+                    // $('#myModal .show-search-left ul').html(particiHtml);
+                    $('.show-search-left ul').html(particiHtml);
+
+                    $('.show-search-left li').on('click', function() {
+                        $(this).siblings().removeClass('active-li');
+                        $(this).addClass('active-li');
+
+                    });
+
+                     $('#myModal .li-left').on('click', function() {
+                        $('#myModal .show-search-right ul').append($('#myModal .show-search-left .active-li').removeClass('active-li'));
+                    }); 
+
+                    $('#myModal .li-right').on('click', function() {
+                        $('#myModal .show-search-left ul').append($('#myModal .show-search-right .active-li').removeClass('active-li'));
+                    }); 
 
                     $('.edit-task').on('click', function() {
-                        var participants = $(this).parent().siblings('.task-group').html();
-                        var particiArr = participants.split(',') || [];
-                        var particiHtml = '<li>';
-                        for (var i = 0;i < particiArr.length; i ++) {
-                            particiHtml += particiArr[i] + '</li><li>';
-                        }
-                        $('#editTask .show-search-left ul').html(particiHtml);
+                        window.clickTaskId = $(this).parent().siblings('.task-id').html();
+                        // var participants = $(this).parent().siblings('.task-group').html();
+                        // var particiArr = participants.split(',') || [];
+                        // var particiHtml = '<li>';
+                        // for (var i = 0;i < particiArr.length; i ++) {
+                        //     particiHtml += particiArr[i] + '</li><li>';
+                        // }
+                        // $('#editTask .show-search-left ul').html(particiHtml);
 
                         $('.show-search-left li').on('click', function() {
                             $(this).siblings().removeClass('active-li');
@@ -209,8 +238,12 @@ $(document).ready(function() {
                         });
 
                         $('.edit-task-issue').val($(this).parent().siblings('.task-issue').html());
-                        $('#editTask .task-start-year').val($(this).parent().siblings('.task-start').html());
-                        $('#editTask .task-end-year').val($(this).parent().siblings('.task-end').html());
+                        $('#editTask .task-start-year').val($(this).parent().siblings('.task-start').html() && $(this).parent().siblings('.task-start').html().split('-')[0])
+                        $('#editTask .task-start-month').val($(this).parent().siblings('.task-start').html() && $(this).parent().siblings('.task-start').html().split('-')[1])
+                        $('#editTask .task-start-day').val($(this).parent().siblings('.task-start').html() && $(this).parent().siblings('.task-start').html().split('-')[2])
+                        $('#editTask .task-end-year').val($(this).parent().siblings('.task-end').html() && $(this).parent().siblings('.task-end').html().split('-')[0]);
+                        $('#editTask .task-end-month').val($(this).parent().siblings('.task-end').html() && $(this).parent().siblings('.task-end').html().split('-')[1]);
+                        $('#editTask .task-end-day').val($(this).parent().siblings('.task-end').html() && $(this).parent().siblings('.task-end').html().split('-')[2]);
                         $('.task-discription').val($(this).parent().siblings('.task-discription').html());
                         $('.edit-task-tag').val($(this).parent().siblings('.task-tag-td').html());
                         // $('.edit-task-issue').val($(this).siblings('.task-issue').html());
@@ -221,17 +254,13 @@ $(document).ready(function() {
                             $('#editTask  .show-search-right ul').append($('#editTask .show-search-left .active-li').removeClass('active-li'));
                         });
 
-                        $('#myModal .li-left').on('click', function() {
-                            $('#myModal .show-search-right ul').append($('#myModal .show-search-left .active-li').removeClass('active-li'));
-                        }); 
+                       
 
                         $('#editTask .li-right').on('click', function() {
                             $('#editTask .show-search-left ul').append($('#editTask .show-search-right .active-li').removeClass('active-li'));
                         });
 
-                        $('#myModal .li-right').on('click', function() {
-                            $('#myModal .show-search-left ul').append($('#myModal .show-search-right .active-li').removeClass('active-li'));
-                        }); 
+                       
 
                     });
 
@@ -329,12 +358,12 @@ $(document).ready(function() {
                     $('#labEdit .J_lab_save').on('click', function(e) {
                         var cas = $('.J_edit_CAS').val();
                         var quantity = $('.J_edit_quantity').val();
-                        var remain_available = $('#labEdit .J_available').val();
+                        var remain_available = $('#labEdit .J_edit_available').val();
                         var location = $('.J_edit_location').val()
                         var expiration_time = $('.J_edit_expire').val();
                         var pn = $('.J_edit_PN').val();
-                        var no = $('#labEdit .J_No').val();
-                        var size = $('.J_edit_size').val();
+                        var no = $('#labEdit .J_edit_No').val();
+                        var size = $('.J_edit_size').val() && $('.J_edit_size').val()[0];
                         var tag = $('.J_edit_Tag').val();
 
                         if (cas === '' || quantity === '' || remain_available === '' || expiration_time === '' || size === '' || tag === '') {
@@ -344,20 +373,21 @@ $(document).ready(function() {
 
                         $.ajax({
                             // url: '/imap 2/src/php/getTeamInfo.php',
-                            url: 'http://www.sjtuimap.com/Interface/operateOneReagent.php',
-                            type: 'post',
+                            url: 'http://www.sjtuimap.com/Interface/alertReagentManager.php',
+                            type: 'get',
                             data: {
-                                type: 'update',
+                                No_: No_,
+                                // type: 'update',
                                 CAS: cas,
-                                From_Team_Id: teamId,
+                                From_Team_ID: teamId,
                                 Quantity: quantity,
-                                Remain_Available: remain_available,
-                                Expiration_Time: expiration_time,
+                                RemainingAviilable: remain_available,
+                                ExpirationTime: expiration_time,
                                 PN: pn,
-                                no: no,
-                                size: size,
-                                tag: tag,
-                                location: location
+                                Art_No: no,
+                                Size: size,
+                                Tag: tag,
+                                Location: location
                             },
                             success: function(data) {
                                 $(e.target).attr('data-dismiss', 'modal');
@@ -398,6 +428,8 @@ $(document).ready(function() {
                     });
 
                     $('.edit-lab').on('click', function() {
+                        window.No_ = $(this).siblings('.J_No_').val();
+
                         var cas = $(this).parent().siblings('.J_cas_val').html();
                         var quantity = $(this).parent().siblings('.J_quantity_val').html();
                         var remain_available = $(this).parent().siblings('.J_remain_val').html();
@@ -463,6 +495,7 @@ $(document).ready(function() {
             },
             success: function(data) {
                 $(e.target).attr('data-dismiss', 'modal');
+                debugger
                  data = JSON.parse(data);
                 if (data.status === 'ok') {
                     location.reload();
@@ -493,7 +526,7 @@ $(document).ready(function() {
             url: 'http://www.sjtuimap.com/Interface/operateOneTask.php',
             type: 'get',
             data: {
-                Task_ID: teamId,
+                Task_ID: clickTaskId,
                 type: 'update',
                 issue: issue,
                 startTime: start,
@@ -565,6 +598,7 @@ $(document).ready(function() {
 
   
     $('.dropdown-menu').on('click', function(e) {
-        $(this).prev().prev().attr('value', $(e.target).html());
+        $(this).prev().prev().val($(e.target).html());
     });
+
 });  

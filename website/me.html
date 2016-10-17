@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1"> 
-		<title>me</title>
+		<title>iGem Me</title>
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="static/favicon.png">
 		<link rel="stylesheet" type="text/css" href="static/me/css/normalize.css" />
@@ -633,13 +633,13 @@
 				    				</td>
 				    			</tr>
 				    			<tr>
-				    				<td>CAS</td>
-				    				<td>
-				    					<input type="text"  class="modal-ipt J_edit_CAS" maxlength="15">
-				    				</td>
+				    				<!-- <td>CAS</td>
+				    				<td> -->
+				    					<input type="hidden"  class="modal-ipt J_edit_CAS" maxlength="15" >
+				    				<!-- </td> -->
 				    				<td>Quentity</td>
 				    				<td >
-				    					<input type="text"  class="modal-ipt J_edit_quantity" maxlength="15">
+				    					<input type="text"  class="modal-ipt J_edit_quantity" maxlength="15" style="width: 200px">
 				    				</td>
 				    			</tr>
 				    			<tr>
@@ -716,8 +716,8 @@
 				</td>
 				<td>
 
-
-					<form action="http://www.sjtuimap.com/Interface/uploadImg.php" method="post" enctype='multipart/form-data'  id='aa' name='aaa' onsubmit="return false" >
+					<!-- <iframe name="demoIframe" style="display:none"></iframe> -->
+					<form action="http://www.sjtuimap.com/Interface/uploadImg.php" method="post" enctype='multipart/form-data'  id='aa' name='aaa'>
 						<!-- <button class="grey team-btn file-wrap">Upload New<input type="submit" class="submit"><input type="file" class="file" name="upload_file"></button> -->
 						
 						<button class="grey team-btn file-wrap">
@@ -742,7 +742,7 @@
 					<img src="{@if data.backgroundPath}${data.backgroundPath}{@else}static/me/img/lab.png{@/if}" alt="" style="max-height: 160px;">
 				</td>
 				<td>
-					<form action="http://www.sjtuimap.com/Interface/uploadImg.php" method="post" enctype='multipart/form-data'  id='aa' name='aaa' onsubmit="return false" >
+					<form action="http://www.sjtuimap.com/Interface/uploadImg.php" method="post" enctype='multipart/form-data'  id='aa' name='aaa' >
 						<button class="grey team-btn file-wrap">
 							Change Cover
 							<input type="file" class="file" name='upload_file'>
@@ -845,6 +845,7 @@
 		</script>
 
 		<script type="text/template" id="lab-tpl">
+			{@if data.length > 0}
 			{@each data as item}
 			<tr>
 				<td class="J_pn_val">{@each item.Reagent_use_record as it,index}{@if index == 0}${it.PN}{@/if}{@/each}</td>
@@ -869,6 +870,7 @@
 				</td>
 			</tr>
 			{@/each}
+			{@/if}
 			<tr>
 				<td colspan="10" class="right">
 					<button class="add-lab"  data-toggle="modal" data-target="#labModal">+</button>
