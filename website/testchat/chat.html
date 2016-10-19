@@ -11,7 +11,44 @@
         <style>
             .ui-menu { width: 150px; }
         </style>
+		
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js">
+		</script>
+		<script type="text/javascript">
+		function loadXMLDoc()
+		{
+			var name;
+			var key;
+			name=document.getElementById("login_account").value;
+			key=document.getElementById("login_pwd").value;
+			var xmlhttp;
+				if (window.XMLHttpRequest)
+				  {// code for IE7+, Firefox, Chrome, Opera, Safari
+				  xmlhttp=new XMLHttpRequest();
+				  }
+				else
+				  {// code for IE6, IE5
+				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+					xmlhttp.onreadystatechange=function()
+					  {
+					  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+						{
+//document.getElementById("hahaha").innerHTML=responseText;
+						 resultfilename="http://www.sjtuimap.com/Interface/"+name.toString()+".json";
+						 $.getJSON(resultfilename,function(json){
+							independentModeLogin(json[0].username,json[0].password)
+						})
+						}
 
+					   }
+alert(name);
+alert(key);
+					xmlhttp.open("GET","http://www.sjtuimap.com/Interface/login.php?name="+name+"& key="+key,true);	
+					xmlhttp.send();
+		}
+		
+	</script>
     </head>
     <body>
         <div class="aio" id="webim_demo">
@@ -1344,8 +1381,8 @@
                         border-bottom: 2px solid #c5bcbb;
                     }
                 </style>
-
-                <form method="post" action="login.php" role="form" onkeydown="if(event.keyCode==13)return false;" style="margin-top:5%;">
+<div id="hahaha">fuck</div>
+                <form role="form" onkeydown="if(event.keyCode==13)return false;" style="margin-top:5%;">
                 
                     <input name="username" type="text" class="input" id="login_account" value="" placeholder="please input identifier" maxlength="100"/>
                 
@@ -1355,9 +1392,8 @@
                 
                     <span id="pwd_pass"></span>
                 
-                    <input name="submit" type="submit" value="Login" id="submit" > <!--onclick="independentModeLogin()"--> 
+                    <input name="submit" type="button" value="Login" id="submit" onclick="loadXMLDoc()"> 
 
-                
                     <section class="link-flip" style="">
                         <p><a href="https://tls.qcloud.com/portal?tmpsig=eekCcXHeDISBh6Dauj7VtjeqfOB82D-HJLXiEgdcqicRxnWEGo*LR-L1A0CJdYBG&identifier=%40v_tls%234pmgdx3h65da&sdkappid=10001">SMS Login</a>
                         <a href="https://tls.qcloud.com/portal?action=reg&tmpsig=dMz5-7Kvzcv1q-hODuzl*-0f0iDOnfABzNbrOjyzJdZEL9L2*7nNMb70VoIy-fMl&identifier=%40v_tls%23yt7fgcedbeur&sdkappid=10001">Register New User</a>

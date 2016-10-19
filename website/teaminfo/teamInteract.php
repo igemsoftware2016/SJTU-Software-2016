@@ -19,8 +19,8 @@ if (!$result=$db->query($sql))
 while ($row=$result->fetch_assoc()) {
     
     $teamname=$row['Team_Name'];
-   
-	$track=$row['Track'];
+    
+			$track=$row['Track'];
 
 $output="<font size='5'><b>".$teamname."</b></font><br /><br /><br /><font size='4'>ADRESS:</font><br />";
 
@@ -51,7 +51,7 @@ else
  if($row['Country']!=NULL)
  $country=$row['Country'];
  }
- $output=$output+$schoolname.'<br/>'.$country.','.$region."<br/><font size='20px'>KIND & TRACK:</font><br/>".$track;
+ $output=$output.$schoolname.'<br/>'.$country.','.$region."<br/><font size='20px'>KIND & TRACK:</font><br/>".$track;
 echo $output;
 
 ?>

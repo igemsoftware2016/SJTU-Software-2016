@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1"> 
-		<title>iGem Me</title>
+		<title>me</title>
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="static/favicon.png">
 		<link rel="stylesheet" type="text/css" href="static/me/css/normalize.css" />
@@ -32,31 +32,38 @@
 			<ul class="nav-list">
 				<li>
 					<a href=".\map.html">
-						<img src="static/me/img/map.png" style = "width:55px;margin-bottom:-20px;margin-top:20px;" alt="" />
+						<img src="static/me/img/map.png" style = "width:55px;margin-bottom:-20px;margin-top:20px;text-decorate:none;" alt="" />
 					</a>
 					<br>
-					<a href=".\map.html" title="" >&nbsp&nbsp&nbspMap</a>
+					<a href=".\map.html" title="" style="margin-left:15px;text-decorate:none;">Map</a>
 				</li>
 				<li>
-					<a href=".\meterial.html">
-						<img src="static/map/images/elem2.png" style = "width:55px;margin-bottom:-20px;margin-top:20px;" alt="" />
+					<a href=".\upload.html">
+						<img src="static/map/images/elem2.png" style = "width:55px;margin-bottom:-20px;margin-top:20px;text-decorate:none;" alt="" />
 					</a>
 					<br>
-					<a href=".\meterial.html" title="">Meterial</a>
+					<a href=".\upload.html" title="" style="margin-left:-3px;text-decorate:none;">Material</a>
 				</li>
 				<li>
 					<a href=".\chat.html" target="_blank">
-						<img src="static/map/images/elem3.png" style = "width:55px;margin-bottom:-20px;margin-top:20px;" alt="" />
+						<img src="static/map/images/elem3.png" style = "width:55px;margin-bottom:-20px;margin-top:20px;text-decorate:none;" alt="" />
 					</a>
 					<br>
-					<a href=".\chat.html" target="_blank" title="">&nbsp&nbsp&nbspChat</a>
+					<a href=".\chat.html" target="_blank" title="" style="margin-left:10px;text-decorate:none;">Chat</a>
 				</li>	
 				<li>
 					<a href=".\me.html" target="_blank">
-						<img src="static/me/img/me.png" style = "width:55px;margin-bottom:-20px;margin-top:20px;" alt="" />
+						<img src="static/me/img/me.png" style = "width:55px;margin-bottom:-20px;margin-top:20px;text-decorate:none;" alt="" />
 					</a>
 					<br>
-					<a href=".\me.html" target="_blank" title="" style="color:#4F4F4F">&nbsp&nbsp&nbsp&nbsp&nbspMe</a>
+					<a href=".\me.html" target="_blank" title="" style="color:#4F4F4F;margin-left:19px;text-decorate:none;">Me</a>
+				</li>
+				<li>
+					<a href=".\teaminfo.html" target="_blank">
+						<img src="static/me/img/team.png" style = "width:55px;margin-bottom:-20px;margin-top:20px;text-decorate:none;" alt="" />
+					</a>
+					<br>
+					<a href=".\teaminfo.html" target="_blank" title="" style="margin-left:10px;text-decorate:none;">Team</a>
 				</li>
 			</ul>
 
@@ -723,7 +730,7 @@
 						<button class="grey team-btn file-wrap">
 							Upload New
 							<input name='upload_file' type='file' class="file" /> 
-							<input type="submit" value="上传" class="submit"/>
+							<input type="submit" value="" class="submit"/>
 						</button>
 						
 
@@ -746,9 +753,9 @@
 						<button class="grey team-btn file-wrap">
 							Change Cover
 							<input type="file" class="file" name='upload_file'>
-							<input type="submit" value="上传" class="submit"/>
+							<input type="submit" value="" class="submit"/>
 						</button>
-						<!-- <input type="submit"  value="上传" class="submit"> -->
+						<!--<input type="submit"  value="" class="submit">-->
 
 						<input type="hidden" name="MAX_FILE_SIZE" value="2132434">
 						<input type="hidden" name="imgRole" value="avatar">

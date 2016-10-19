@@ -19,20 +19,30 @@ while ($row=$result->fetch_assoc())
     $team_id=$row['Team_ID'];
 
 
-$sql="select * from Teamfile_Manager where Team_ID = '$q'";
+$sql="select * from Teamfile_Manager where Team_ID = '$team_id'";
 
-if (!$result=$db->query($sql))
+if (!$result1=$db->query($sql))
 {
     die("There was an error running the query [".$db->error."]");
 }
 
 
-while ($row=$result->fetch_assoc()) 
-$curve=$row['background'];
+while ($row1=$result1->fetch_assoc()) 
+$curve=$row1['background'];
 if($curve!=NULL)
-	echo $curve;
+	$curve="    <div id=\"sec1\" style=\"background-size:100% 50%; background-image:url(http://www.sjtuimap.com/static/".$curve.");\">
+	<font size=\"+7\" color=\"#FFFFFF\" face=\"Microsoft YaHei UI\">$q</font>
+	<div id=\"track\" style=\"float:left;font-family:toboto;
+    padding-top:30%;position:relative;\"><font size=\"+5\" color=\"#FFFFFF\" face=\"Microsoft YaHei UI\">Track</font>
+      </div>
+    </div>";
 else
-	echo "teaminfo\\img\\moren.jpg";//默认背景
+	$curve="    <div id=\"sec1\" style=\"background-size:100% 50%; background-image:url(http://www.sjtuimap.com/static/img/mrbackground.jpg);\">
+	<font size=\"+7\" color=\"#FFFFFF\" face=\"Microsoft YaHei UI\">$q</font>
+	<div id=\"track\" style=\"float:left;font-family:toboto;
+    padding-top:30%;position:relative;\"><font size=\"+5\" color=\"#FFFFFF\" face=\"Microsoft YaHei UI\">Track</font>
+      </div>
+    </div>";//默认背景
 
 
 ?>

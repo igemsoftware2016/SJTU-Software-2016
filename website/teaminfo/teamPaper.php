@@ -22,9 +22,12 @@ $paper="";
 while ($row=$result->fetch_assoc()) 
     $teamid= $row['Team_ID'];
 $sql="select * from Papers where team_id='$team_id'";
-
+if (!$result=$db->query($sql))
+{
+    die("There was an error running the query [".$db->error."]");
+}
 while ($row=$result->fetch_assoc()) 
-    $paper+=  "<a>".$row['save_path']." </a><br />";
+    $paper=$paper.$row['file_name']." <br />";
 
 echo $paper;
 

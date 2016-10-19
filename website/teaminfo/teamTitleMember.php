@@ -34,7 +34,7 @@ while ($row=$result->fetch_assoc())
 	$title=$row['Title'];
 	$abstract=$row['Abstract'];
 }
-$output=" <font size='3'>TITLE AND ABSTRACT</font><br />".$title."<br />".$abstract."<hr /><font size='3'>MEMBERS</font>";
+$output=" <font size='3'>TITLE AND ABSTRACT</font><br />".$title."<br />".$abstract."<hr /><font size='3'>MEMBERS</font><br />";
 
 
 $sql3="select Person_ID from Join_Team where Team_ID='$teamid'";
@@ -42,21 +42,28 @@ $sql3="select Person_ID from Join_Team where Team_ID='$teamid'";
 $personid="";
 
 $name="";
-if (!$result=$db->query($sql3))
+$now = 0;
+if (!$result1=$db->query($sql3))
 {
     die("There was an error running the query [".$db->error."]");
 }else
-while ($row=$result->fetch_assoc()) 
+while ($row1=$result1->fetch_assoc()) 
 {
-	$personid=$row['Person_ID'];
-if (!$result1=$db->query("select * from Person where ID='$personid'"))
+	$personid=$row1['Person_ID'];
+if (!$result2=$db->query("select * from Person where ID='$personid'"))
 {
     die("There was an error running the query [".$db->error."]");
 }
 else
 {
-	$row=$result->fetch_assoc();
-	$name+=$row['Name']+"<br />";
+    $now++;
+	$row2=$result2->fetch_assoc();
+    $name=$name.sprintf("%30s",$row2['Name']);
+	//$name=$name.$row2['Name']."&nbsp&nbsp&nbsp" ;
+    if ($now%3==0)
+    {
+        $name=$name."<br />";
+    }
 	}
 }
 echo $output.$name."<hr />";

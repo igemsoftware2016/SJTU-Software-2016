@@ -171,7 +171,7 @@ CURVE=function(str)
     {
         if (xmlhttp.readyState==4 && xmlhttp.status==200)
         {
-            document.getElementById("infoframe").contentWindow.document.getElementById("sec1").backgroundImage=xmlhttp.responseText;
+            document.getElementById("infoframe").contentWindow.document.getElementById("page1").backgroundImage=xmlhttp.responseText;
         }
     }
     xmlhttp.open("GET","teaminfo/teamCurve.php?q="+str,true);

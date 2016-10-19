@@ -11,7 +11,42 @@
         <style>
             .ui-menu { width: 150px; }
         </style>
+		
+		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js">
+		</script>
+		<script type="text/javascript">
+		function loadXMLDoc()
+		{
+			var name;
+			var key;
+			name=document.getElementById("login_account").value;
+			key=document.getElementById("login_pwd").value;
+			var xmlhttp;
+				if (window.XMLHttpRequest)
+				  {// code for IE7+, Firefox, Chrome, Opera, Safari
+				  xmlhttp=new XMLHttpRequest();
+				  }
+				else
+				  {// code for IE6, IE5
+				  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				  }
+					xmlhttp.onreadystatechange=function()
+					  {
+					  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+						{
+						 resultfilename="http://www.sjtuimap.com/Interface/"+name.toString()+".json";
+		$.getJSON(resultfilename,function(json){
+		console.log(json[0].username+json[0].password);
+							independentModeLogin(json[0].username,json[0].password);
+						})
+						}
 
+					   }
+					xmlhttp.open("GET","http://www.sjtuimap.com/Interface/login.php?name="+name+"& key="+key,true);	
+					xmlhttp.send();
+		}
+		
+	</script>
     </head>
     <body>
         <div class="aio" id="webim_demo">
@@ -445,7 +480,7 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <!-- 模态框（Modal�?-->
+        <!-- 模态框（Modal） -->
         <div class="modal fade" id="response_friend_dialog" tabindex="-1" role="dialog" 
              aria-labelledby="response_friend_dialog_label" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog">
@@ -522,7 +557,7 @@
                                 <label  class="col-sm-2 control-label">Selected Friends</label>
                                 <div class="col-sm-8">
                                     <!--<input type="text" class="form-control" id="select_friends" value=""
-                                           placeholder="已选好友列�? readonly="readonly">-->
+                                           placeholder="已选好友列表" readonly="readonly">-->
                                     <textarea class="form-control" id="select_friends"
                                               rows="3" readonly="readonly"></textarea>
                                 </div>
@@ -911,7 +946,7 @@
                                 <label for="dgm_account" class="col-sm-2 control-label">Member Account</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="dgm_account" 
-                                           placeholder="Please Input 要删除成员帐�? readonly="readonly">
+                                           placeholder="Please Input 要删除成员帐号" readonly="readonly">
                                 </div>
                             </div>
                             <!--<div class="form-group">
@@ -920,11 +955,11 @@
 
                                     <label class="radio-inline">
                                         <input type="radio" name="dgm_silence_radio" id="dgm_silence_yes_radio" 
-                                               value="1" checked> �?
+                                               value="1" checked> 是
                                     </label>
                                     <label class="radio-inline">
                                         <input type="radio" name="dgm_silence_radio" id="dgm_silence_no_radio" 
-                                               value="0"> �?
+                                               value="0"> 否
                                     </label>
 
                                 </div>
@@ -1290,7 +1325,7 @@
                     }
                     .link-flip {
                         background: rgba(249,165,166,0);
-                        margin-left:28%;
+                        margin-left:31%;
                         margin-top: 2%;
                     }
 
@@ -1345,16 +1380,23 @@
                     }
                 </style>
                 <form role="form" onkeydown="if(event.keyCode==13)return false;" style="margin-top:5%;">
-                    <input type="text" class="input" id="login_account" placeholder="please input identifier" maxlength="100"/>
+                
+                    <input name="username" type="text" class="input" id="login_account" value="" placeholder="please input Account" maxlength="100"/>
+                
                     <span id="user_pass"></span>
-                    <input type="password" class="input" id="login_pwd" placeholder="please input UserSig"/>
+                
+                    <input name="password" type="password" class="input" id="login_pwd" value="" placeholder="please input Password"/>
+                
                     <span id="pwd_pass"></span>
-                    <input type="button" value="Login" id="submit" onclick="independentModeLogin()">
+                
+                    <input name="submit" type="button" value="Login" id="submit" onclick="loadXMLDoc()"> 
+
                     <section class="link-flip" style="">
                         <p><a href="https://tls.qcloud.com/portal?tmpsig=eekCcXHeDISBh6Dauj7VtjeqfOB82D-HJLXiEgdcqicRxnWEGo*LR-L1A0CJdYBG&identifier=%40v_tls%234pmgdx3h65da&sdkappid=10001">SMS Login</a>
                         <a href="https://tls.qcloud.com/portal?action=reg&tmpsig=dMz5-7Kvzcv1q-hODuzl*-0f0iDOnfABzNbrOjyzJdZEL9L2*7nNMb70VoIy-fMl&identifier=%40v_tls%23yt7fgcedbeur&sdkappid=10001">Register New User</a>
                         <a href="https://tls.qcloud.com/portal?tmpsig=dhrxF1EW05uEElFqUo1kJVPMgas8kCqYE21uOI73ASngwhlt503*vO3-8jcp3kpa&identifier=%40v_tls%23rbnekx9bdqya&sdkappid=10001">Tourists Visit</a></p>
                     </section>
+
                 </form>
                 <!--<div class="modal-content">
                     <div class="modal-header">
@@ -1557,7 +1599,7 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
         
-        <!-- 模态框（Modal�?-->
+        <!-- 模态框（Modal） -->
         <div class="modal fade" id="handle_ajg_dialog" tabindex="-1" role="dialog" 
              aria-labelledby="handle_ajg_dialog_label" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog">
@@ -1817,7 +1859,7 @@
         <script type="text/javascript" src="static/js/lib/bootstrap/bootstrap-collapse.js"></script>
         <!--TLS web sdk(只用于托管模式，独立模式不用引入)-->
         <script type="text/javascript" src="https://tls.qcloud.com/libs/api.min.js"></script>
-        <!--用于获取文件MD5 js api(Sent图片时用�?-->
+        <!--用于获取文件MD5 js api(Sent图片时用到)-->
         <script type="text/javascript" src="static/js/lib/md5/spark-md5.js"></script>
         
         <!--web im sdk-->
@@ -1828,7 +1870,7 @@
         <script type="text/javascript" src="static/js/login/login.js"></script>
         <!--web im sdk 登出 示例代码-->
         <script type="text/javascript" src="static/js/logout/logout.js"></script>
-        <!--web im 解析一条消�?示例代码-->
+        <!--web im 解析一条消息 示例代码-->
         <script type="text/javascript" src="static/js/common/show_one_msg.js"></script>
         <!--web im demo 基本逻辑-->
         <script type="text/javascript" src="static/js/base.js"></script>
@@ -1838,29 +1880,29 @@
         <script type="text/javascript" src="static/js/friend/friend_manager.js"></script>
         <!--web im sdk 好友申请管理 api 示例代码-->
         <script type="text/javascript" src="static/js/friend/friend_pendency_manager.js"></script>
-        <!--web im sdk 好友黑名单管�?api 示例代码-->
+        <!--web im sdk 好友黑名单管理 api 示例代码-->
         <script type="text/javascript" src="static/js/friend/friend_black_list_manager.js"></script>
         <!--web im sdk 群组管理 api 示例代码-->
         <script type="text/javascript" src="static/js/group/group_manager.js"></script>
-        <!--web im sdk 群成员管�?api 示例代码-->
+        <!--web im sdk 群成员管理 api 示例代码-->
         <script type="text/javascript" src="static/js/group/group_member_manager.js"></script>
         <!--web im sdk 加群申请管理 api 示例代码-->
         <script type="text/javascript" src="static/js/group/group_pendency_manager.js"></script>
-        <!--web im 切换聊天好友或群�?示例代码-->
+        <!--web im 切换聊天好友或群组 示例代码-->
         <script type="text/javascript" src="static/js/switch_chat_obj.js"></script>
         <!--web im sdk 获取c2c获取群组历史消息 示例代码-->
         <script type="text/javascript" src="static/js/msg/get_history_msg.js"></script>
-        <!--web im sdk Sent普通消�?文本和表�? api 示例代码-->
+        <!--web im sdk Sent普通消息(文本和表情) api 示例代码-->
         <script type="text/javascript" src="static/js/msg/send_common_msg.js"></script>
         <!--web im sdk 上传和Sent图片消息 api 示例代码-->
         <script type="text/javascript" src="static/js/msg/upload_and_send_pic_msg.js"></script>
         <!--web im sdk 切换播放语音消息 示例代码-->
         <script type="text/javascript" src="static/js/msg/switch_play_sound_msg.js"></script>
-        <!--web im sdk Sent自定义消�?api 示例代码-->
+        <!--web im sdk Sent自定义消息 api 示例代码-->
         <script type="text/javascript" src="static/js/msg/send_custom_msg.js"></script>
-        <!--web im 监听新消�?c2c或群) 示例代码-->
+        <!--web im 监听新消息(c2c或群) 示例代码-->
         <script type="text/javascript" src="static/js/msg/receive_new_msg.js"></script>
-        <!--web im 监听�?System Message消息 示例代码-->
+        <!--web im 监听群 System Message消息 示例代码-->
         <script type="text/javascript" src="static/js/msg/receive_group_system_msg.js"></script>
         <!--web im 监听好友 System Message消息 示例代码-->
         <script type="text/javascript" src="static/js/msg/receive_friend_system_msg.js"></script>
@@ -1869,10 +1911,10 @@
         
         <script type="text/javascript">
             
-            //帐号模式�?-表示独立模式�?-表示托管模式
+            //帐号模式，0-表示独立模式，1-表示托管模式
             var accountMode=0;
             
-            //官方 demo appid,需要开发者自己修改（托管模式�?
+            //官方 demo appid,需要开发者自己修改（托管模式）
             var sdkAppID = 1400013878;
             var accountType = 7078;
 
@@ -1887,61 +1929,61 @@
             };
             
             var selType = webim.SESSION_TYPE.C2C;//当前聊天类型
-            var selToID = null;//当前选中聊天id（当聊天类型为私聊时，该值为好友帐号，否则为群号�?
+            var selToID = null;//当前选中聊天id（当聊天类型为私聊时，该值为好友帐号，否则为群号）
             var selSess = null;//当前聊天会话对象
             
             
             //默认好友或群头像
             var friendHeadUrl = 'static/img/2017.jpg';
             
-            var maxNameLen=5;//My Friends或群组列表中名称显示最大长度，仅demo用得�?
-            var reqMsgCount = 15;//每次请求的历史消�?c2c获取�?条数，进demo用得�?
-            var pageSize = 15;//表格的每页条数，bootstrap table 分页时用�?
-            var totalCount = 200;//每次接口请求的条数，bootstrap table 分页时用�?
+            var maxNameLen=5;//My Friends或群组列表中名称显示最大长度，仅demo用得到
+            var reqMsgCount = 15;//每次请求的历史消息(c2c获取群)条数，进demo用得到
+            var pageSize = 15;//表格的每页条数，bootstrap table 分页时用到
+            var totalCount = 200;//每次接口请求的条数，bootstrap table 分页时用到
             
-            var emotionFlag = false;//是否打开过表情Select�?
+            var emotionFlag = false;//是否打开过表情Select框
             
             var curPlayAudio=null;//当前正在播放的audio对象
             
             var getPrePageC2CHistroyMsgInfoMap={};//保留下一次拉取好友历史消息的信息
-            var getPrePageGroupHistroyMsgInfoMap={};//保留下一次拉取群历史消息的信�?
+            var getPrePageGroupHistroyMsgInfoMap={};//保留下一次拉取群历史消息的信息
             
-            var defaultSelGroupId=null;//登录默认选中的群id，选填，仅demo用得�?
+            var defaultSelGroupId=null;//登录默认选中的群id，选填，仅demo用得到
             
-            //监听（多终端同步）群系统消息方法，方法都定义在receive_group_system_msg.js文件�?
-            //注意每个数字代表的含义，比如�?
-            //1表示监听申请加群消息�?表示监听申请加群被同意消息，3表示监听申请加群被拒绝消�?
+            //监听（多终端同步）群系统消息方法，方法都定义在receive_group_system_msg.js文件中
+            //注意每个数字代表的含义，比如，
+            //1表示监听申请加群消息，2表示监听申请加群被同意消息，3表示监听申请加群被拒绝消息
             var onGroupSystemNotifys={
                 "1": onApplyJoinGroupRequestNotify,//申请加群请求（只有管理员会收到）
                 "2": onApplyJoinGroupAcceptNotify,//申请加群被同意（只有申请人能够收到）
                 "3": onApplyJoinGroupRefuseNotify,//申请加群被拒绝（只有申请人能够收到）
-                "4": onKickedGroupNotify,//被管理员踢出�?只有被踢者接收到)
+                "4": onKickedGroupNotify,//被管理员踢出群(只有被踢者接收到)
                 "5": onDestoryGroupNotify,//群被解散(全员接收)
-                "6": onCreateGroupNotify,//创建�?创建者接�?
-                "7": onInvitedJoinGroupNotify,//邀请加�?被邀请者接�?
-                "8": onQuitGroupNotify,//主动退�?主动退出者接�?
-                "9": onSetedGroupAdminNotify,//设置管理�?被设置者接�?
-                "10": onCanceledGroupAdminNotify,//取消管理�?被取消者接�?
-                "11": onRevokeGroupNotify,//群已被回�?全员接收)
+                "6": onCreateGroupNotify,//创建群(创建者接收)
+                "7": onInvitedJoinGroupNotify,//邀请加群(被邀请者接收)
+                "8": onQuitGroupNotify,//主动退群(主动退出者接收)
+                "9": onSetedGroupAdminNotify,//设置管理员(被设置者接收)
+                "10": onCanceledGroupAdminNotify,//取消管理员(被取消者接收)
+                "11": onRevokeGroupNotify,//群已被回收(全员接收)
                 "255": onCustomGroupNotify//用户自定义通知(默认全员接收)
             };
             
-            //监听好友 System Message函数对象，方法都定义在receive_friend_system_msg.js文件�?
+            //监听好友 System Message函数对象，方法都定义在receive_friend_system_msg.js文件中
             var onFriendSystemNotifys={
-                "1": onFriendAddNotify,//好友表增�?
-                "2": onFriendDeleteNotify,//好友表删�?
+                "1": onFriendAddNotify,//好友表增加
+                "2": onFriendDeleteNotify,//好友表删除
                 "3": onPendencyAddNotify,//未决增加
                 "4": onPendencyDeleteNotify,//未决删除
-                "5": onBlackListAddNotify,//黑名单增�?
-                "6": onBlackListDeleteNotify//黑名单删�?
+                "5": onBlackListAddNotify,//黑名单增加
+                "6": onBlackListDeleteNotify//黑名单删除
             };
             
-            //监听资料 System Message函数对象，方法都定义在receive_profile_system_msg.js文件�?
+            //监听资料 System Message函数对象，方法都定义在receive_profile_system_msg.js文件中
             var onProfileSystemNotifys={
                 "1": onProfileModifyNotify//资料修改  
             };
             
-            //监听连接状态回调变化事�?
+            //监听连接状态回调变化事件
             var onConnNotify=function(resp){
                 var info;
                 switch(resp.ErrorCode){
@@ -1954,28 +1996,28 @@
                         webim.Log.warn(info);
                         break;
                     case webim.CONNECTION_STATUS.RECONNECT:
-                        info='连接状态恢复正�? '+resp.ErrorInfo;
+                        info='连接状态恢复正常: '+resp.ErrorInfo;
                         alert(info);
                         webim.Log.warn(info);
                         break;
                     default:
-                        webim.Log.error('未知连接状�? ='+resp.ErrorInfo);
+                        webim.Log.error('未知连接状态: ='+resp.ErrorInfo);
                         break;
                 }
             };
             
-            //IE9(�?以下浏览器用到的jsonp回调函数
+            //IE9(含)以下浏览器用到的jsonp回调函数
             function jsonpCallback(rspData) {
                 webim.setJsonpLastRspData(rspData);
             }
             
             //监听事件
             var listeners = {
-                "onConnNotify": onConnNotify,//监听连接状态回调变化事�?必填
-                "jsonpCallback": jsonpCallback,//IE9(�?以下浏览器用到的jsonp回调函数�?
-                "onMsgNotify": onMsgNotify,//监听新消�?私聊，普通群(非直播聊天室)消息，全员推送消�?事件，必�?
-                "onBigGroupMsgNotify": onBigGroupMsgNotify,//监听新消�?直播聊天�?事件，直播场景下必填
-                "onGroupSystemNotifys": onGroupSystemNotifys,//监听（多终端同步）群系统消息事件，如果不需要监听，可不�?
+                "onConnNotify": onConnNotify,//监听连接状态回调变化事件,必填
+                "jsonpCallback": jsonpCallback,//IE9(含)以下浏览器用到的jsonp回调函数，
+                "onMsgNotify": onMsgNotify,//监听新消息(私聊，普通群(非直播聊天室)消息，全员推送消息)事件，必填
+                "onBigGroupMsgNotify": onBigGroupMsgNotify,//监听新消息(直播聊天室)事件，直播场景下必填
+                "onGroupSystemNotifys": onGroupSystemNotifys,//监听（多终端同步）群系统消息事件，如果不需要监听，可不填
                 "onGroupInfoChangeNotify": onGroupInfoChangeNotify,//监听群资料变化事件，选填
                 "onFriendSystemNotifys": onFriendSystemNotifys,//监听好友 System Message事件，选填
                 "onProfileSystemNotifys": onProfileSystemNotifys//监听资料系统（自己或好友）通知事件，选填
@@ -2003,9 +2045,9 @@
                         //获取正式身份凭证，成功后会回调tlsGetUserSig(res)函数
                         TLSHelper.fetchUserSig();
                     }
-                } else {//未登�?
+                } else {//未登录
                     if (loginInfo.identifier == null) {
-                        //弹出Select应用类型对话�?
+                        //弹出Select应用类型对话框
                         //$('#select_app_dialog').modal('show');
                         webim.Tool.setCookie('accountType', loginInfo.accountType, 3600 * 24);
                         //调用tls登录服务

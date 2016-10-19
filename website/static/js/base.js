@@ -75,17 +75,9 @@ function showLoginDialog() {
 }
 
 //点击登录按钮(独立模式)
-function independentModeLogin() {
-    if ($("#login_account").val().length == 0) {
-        alert('请输入帐号');
-        return;
-    }
-    if ($("#login_pwd").val().length == 0) {
-        alert('请输入UserSig');
-        return;
-    }
-    loginInfo.identifier = $('#login_account').val();
-    loginInfo.userSig = $('#login_pwd').val();
+function independentModeLogin(name, key) {
+    loginInfo.identifier = name;
+    loginInfo.userSig = key;
     $('#login_dialog').modal('hide');
     webimLogin();
 }

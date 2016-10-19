@@ -7,6 +7,7 @@ import base64
 import zlib
 import json
 import time
+import DB
 
 ecdsa_pri_key = """
 -----BEGIN EC PARAMETERS-----
@@ -96,12 +97,20 @@ class TLSSigAPI:
         return base64_sig 
 
 def calc(accounts):
+    db = DB.database()
+    print accounts
+    person_id = db.search("select ID from Person where Account_Number=\"%s\";" %accounts)[0]["ID"]
+    team_id = db.search("select Team_ID from Join_Team where Person_ID=%d;" %person_id)[0]["Team_ID"]
+    team_name = db.search("select Team_Name from Teams where Team_ID=%d;" %team_id)[0]["Team_Name"]
+    db.quit_database()
     api = TLSSigAPI(1400013878, ecdsa_pri_key)
     sig = api.tls_gen_sig(accounts)
     print sig
     d = dict()
     d["username"] = accounts
     d["password"] = sig
+    d["team_id"] = team_id
+    d["team_name"] = team_name
     result = json.dumps(d)
     files = open(accounts+".json","w")
     files.write("[")
