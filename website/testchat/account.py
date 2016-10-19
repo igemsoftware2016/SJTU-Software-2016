@@ -88,11 +88,13 @@ class account():
 
     def check_data_information(self):
         answer = self.db.search("select * from Person where Person.Account_Number = \"%s\";" % self.name)
-        #print answer
         if (len(answer) == 0)or(not answer[0]["IGEM_Password"]):
             if self.check_login_information():
+                #print 2
                 self.db.insert("update Person set IGEM_Password=\"%s\" where Account_Number=\"%s\";" %(self.passwd,self.name))
                 return True
+            else:
+                return False
         elif (answer[0]["Account_Number"] == self.name)and(answer[0]["IGEM_Password"] == self.passwd):
             return True
         else:
