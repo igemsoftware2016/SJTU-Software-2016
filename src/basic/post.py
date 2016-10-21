@@ -83,5 +83,5 @@ def add_group(files):
                     break
    
 
-#add_group("add_group.txt")
+add_group("add_group.txt")
 #add_user()
