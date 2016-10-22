@@ -98,11 +98,12 @@ def add_user_to_group():
     meth = "group_open_http_svc/add_group_member?"
     url = set_method(meth)
     user = db.search("select Account_Number,ID from IGEM.Person;")
-    for i in range(2000,len(user)):
+    for i in range(4000,len(user)):
         #team_id = db.search("select Team_ID from IGEM.Join_Team where Person_ID = %d;" %user[i]["ID"])[0]["Team_ID"]
         #group_id = db.search("select group_id from Chat.groups where team_id = %d;"%team_id)[0]["group_id"]
-        #group_id = "@TGS#2GPDAXFE6"
-        group_id = ""
+        #group_id = "@TGS#2GPDAXFE6" #IGEMer 
+        #group_id = "@TGS#2ZGTGXFEA" #IGEMer2
+        group_id = "@TGS#2WFXBXFE2" #IGEMer3
         data = {
             "GroupId":group_id,
             "MemberList":[
@@ -124,6 +125,6 @@ def add_user_to_group():
             else:
                 print data["MemberList"][0]["Member_Account"]
 
-#add_user_to_group()
+add_user_to_group()
 #del_friend()
-add_friend()
+#add_friend()
