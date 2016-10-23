@@ -22,9 +22,9 @@ while ($row=$result->fetch_assoc()) {
     
 			$track=$row['Track'];
 
-$output="<font size='5'><b>".$teamname."</b></font><br /><br /><br /><font size='4'>ADRESS:</font><br />";
+$output="<font size='56px'><b>".$teamname."</b></font><br /><br /><br /><font size='20px'>ADDRESS:</font><br />";
 
-$schoolid=$row['School_ID'];
+"<font size='18px'>".$schoolid=$row['School_ID']."</font>";
 $areaid=$row['Area_ID'];
 }
 

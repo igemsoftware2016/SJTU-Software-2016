@@ -31,7 +31,7 @@ while ($row=$result->fetch_assoc())
 		if($touxiang==NULL)
 		$touxiang="teaminfo\\img\\3.png";
 		$teamname=$row['Team_Name'];
-		echo "<li onclick=showTeamInfo('".$row['Team_Name']."') onmouseover=turnblue(this) onmouseout=turnwhite(this) value='$teamname'><img height=\"40px\" width=\"40px\"src=\"".$touxiang."\" />".$row['Team_Name']."</li>";
+		echo "<li onclick=showTeamInfo('".$row['Team_Name']."') onmouseover=turnblue(this) onmouseout=turnwhite(this) value='$teamname'><img height=\"40px\" width=\"40px\"src=\"".$touxiang."\" />"."<a style=\"margin-bottom:50px;\">".$row['Team_Name']."</a></li>";
 }
 	
 ?>

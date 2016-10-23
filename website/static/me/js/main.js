@@ -1,11 +1,11 @@
 $(document).ready(function() {  
 
     //判断登陆逻辑
-    // var selfLocation = window.location;
-    // var login = localStorage.login;
-    // if (!login) {
-    //     location.replace(selfLocation.protocol + '//' + selfLocation.host + '/imap2/website/login.html');
-    // }
+    var selfLocation = window.location;
+    var login = localStorage.getItem("login");
+    if (!login) {
+    	location.replace(selfLocation.protocol + '//' + selfLocation.host + '/chat.html');
+    }
   
     /* ------------------------------------------------------
      * Mobile Menu
@@ -77,9 +77,7 @@ $(document).ready(function() {
     });
 
 
-    var teamId = null;
-    
-
+    var teamId = localStorage.getItem("team_ID");
     // var pn = '';
     // var no = '';
     // var Location = '';
@@ -88,7 +86,7 @@ $(document).ready(function() {
         //获取队员信息
         $.ajax({
             // url: '/imap 2/src/php/getTeamInfo.php',
-            url: 'http://www.sjtuimap.com/Interface/getTeamInfo.php',
+            url: 'http://www.sjtuimap.com/Interface/getTeamInfo.php?team_ID=' + teamId ,
             type: 'GET',
             success: function(data) {
                 window.participant = data.MyTeam && data.MyTeam.Members;
@@ -185,11 +183,11 @@ $(document).ready(function() {
                });
             }
         }).then(function() {
-            teamId = teamId;
+            //teamId = teamId;
             //获取task信息
             $.ajax({
                 // url: '/imap 2/src/php/getTeamInfo.php',
-                url: 'http://www.sjtuimap.com/Interface/getTask.php',
+                url: 'http://www.sjtuimap.com/Interface/getTask.php?team_ID=' + teamId,
                 type: 'post',
                 data: {
                     team_ID: teamId
@@ -287,7 +285,7 @@ $(document).ready(function() {
             });
 
             $.ajax({
-                url: 'http://www.sjtuimap.com/Interface/getReagentAndInstrument.php',
+                url: 'http://www.sjtuimap.com/Interface/getReagentAndInstrument.php?team_ID=' + teamId,
                 type: 'get',
                 data: {
                     type: 'instrument',
@@ -299,7 +297,7 @@ $(document).ready(function() {
             }).then(function() {
                  $.ajax({
                     // url: '/imap 2/src/php/getTeamInfo.php',
-                    url: 'http://www.sjtuimap.com/Interface/getReagentAndInstrument.php',
+                    url: 'http://www.sjtuimap.com/Interface/getReagentAndInstrument.php?team_ID=' + teamId + "&type=reagent" ,
                     type: 'get',
                     data: {
                         type: 'reagent',

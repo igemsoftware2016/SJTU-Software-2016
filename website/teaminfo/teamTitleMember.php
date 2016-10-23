@@ -34,7 +34,7 @@ while ($row=$result->fetch_assoc())
 	$title=$row['Title'];
 	$abstract=$row['Abstract'];
 }
-$output=" <font size='3'>TITLE AND ABSTRACT</font><br />".$title."<br />".$abstract."<hr /><font size='3'>MEMBERS</font><br />";
+$output=" <font size='18px'>TITLE AND ABSTRACT</font><br />".$title."<br />".$abstract."<hr /><font size='3'>MEMBERS</font><br />";
 
 
 $sql3="select Person_ID from Join_Team where Team_ID='$teamid'";
