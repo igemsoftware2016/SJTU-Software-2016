@@ -1,12 +1,10 @@
 <?php
-    // 通过POST方式获取team_Name , team_ID 和 imgRole
+    // 通过get方式获取team_Name 和 team_ID
     // $team_Name = "bostonu";
     // $team_ID = "1234";
-    header('Access-Control-Allow-Origin:*');
-header('Access-Control-Allow-Methods:POST');
-    $team_Name = $_POST["teamName"] ? $_POST["teamName"] : "aachen";
-    $team_ID = $_POST["teamID"] ? $_POST["teamID"] : "1875";
-    $imgRole = $_POST["imgRole"] ? $_POST["imgRole"] : "avatar";
+    $team_Name = $_GET["teamName"] ? $_GET["teamName"] : "aachen";
+    $team_ID = $_GET["teamID"] ? $_GET["teamID"] : "1234";
+    // echo $team_Name;
 
     $ftp_server = "115.159.215.213";
     $ftp_user_name = "ubuntu";
@@ -15,7 +13,7 @@ header('Access-Control-Allow-Methods:POST');
     $file = $_FILES["upload_file"]["tmp_name"];
     
     $file_type = substr(strrchr($_FILES["upload_file"]["name"], '.'), 1);
-    $remote_file = "~/mydata/Team_Data/".$team_Name."/".$team_Name.$imgRole.".".$file_type;
+    $remote_file = "./Team_Data/".$team_Name."/".$team_Name."HeadImg.".$file_type;
     $login_result = ftp_login($conn_id , $ftp_user_name , $ftp_user_pass);
 
     ftp_pasv($conn_id, true);
@@ -27,7 +25,7 @@ header('Access-Control-Allow-Methods:POST');
         $remote_file = "ftp://115.159.215.213".$remote_file;
 
         header("content-Type: text/html; charset=UTF8");
-        $db=new mysqli("localhost","root","sjtuigem2016","IGEM");
+        $db=new mysqli("115.159.215.213:3306","root","sjtuigem2016","IGEM");
 
         if($db->connect_error) {
                 echo "连接失败".$db->connect_error;
@@ -35,19 +33,15 @@ header('Access-Control-Allow-Methods:POST');
                 // echo "连接成功<br>";
         }
         $db->query("SET NAMES utf8");
-        $imgRole = strtolower($imgRole);
-        $imgRole = ucwords($imgRole); 
-        $sql = "UPDATE Teamfile_Manager SET {$imgRole}='{$remote_file}' WHERE Team_ID='{$team_ID}'";
-	if(!$db){
-		$db=new mysqli("localhost","root","sjtuigem2016","IGEM");
-	}
+        $sql = "UPDATE Teamfile_Manager SET Avatar='{$remote_file}' WHERE Team_ID='{$team_ID}'";
+
         if($db->query($sql) === TRUE) {
-            echo '{"status":"ok" , "path":"'.$remote_file.'"}';
+            echo "{'status':'ok' , 'path':'{$remote_file}'}";
         } else {
-            echo '{"status":"error" , "errorInfo":"'.$db->error.'"}';
+            echo "{'status':'error' , 'errorInfo':'{$db->error}'}";
         }
     } else {
-        echo '{"status":"error" , "errorInfo":"'.$res.'"}';
+        echo "头像上传失败".$res;
     }
     ftp_close($conn_id);
 ?>
