@@ -35,11 +35,11 @@
 					  if (xmlhttp.readyState==4 && xmlhttp.status==200)
 						{
 						 resultfilename="http://www.sjtuimap.com/Interface/"+name.toString()+".json";
-		$.getJSON(resultfilename,function(json){
-		console.log(json[0].username+json[0].password);
-		localStorage.setItem("team_ID",json[0].team_ID);
-		localStorage.setItem("login", "1");
-							independentModeLogin(json[0].username,json[0].password);
+                                  		 $.getJSON(resultfilename,function(json){
+		                                 console.log(json[0].username+json[0].password);
+		                                 localStorage.setItem("team_id",json[0].team_id);
+		                                 localStorage.setItem("login", "1");
+						 independentModeLogin(json[0].username,json[0].password);
 						})
 						}
 
@@ -1394,9 +1394,7 @@
                     <input name="submit" type="button" value="Login" id="submit" onclick="loadXMLDoc()"> 
 
                     <section class="link-flip" style="">
-                        <p><a href="https://tls.qcloud.com/portal?tmpsig=eekCcXHeDISBh6Dauj7VtjeqfOB82D-HJLXiEgdcqicRxnWEGo*LR-L1A0CJdYBG&identifier=%40v_tls%234pmgdx3h65da&sdkappid=10001">SMS Login</a>
-                        <a href="https://tls.qcloud.com/portal?action=reg&tmpsig=dMz5-7Kvzcv1q-hODuzl*-0f0iDOnfABzNbrOjyzJdZEL9L2*7nNMb70VoIy-fMl&identifier=%40v_tls%23yt7fgcedbeur&sdkappid=10001">Register New User</a>
-                        <a href="https://tls.qcloud.com/portal?tmpsig=dhrxF1EW05uEElFqUo1kJVPMgas8kCqYE21uOI73ASngwhlt503*vO3-8jcp3kpa&identifier=%40v_tls%23rbnekx9bdqya&sdkappid=10001">Tourists Visit</a></p>
+                        <p><a href="./register.html" target="_blank" >Register Now!</a></p>
                     </section>
 
                 </form>

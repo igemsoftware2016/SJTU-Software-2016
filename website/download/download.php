@@ -30,8 +30,10 @@ if (!$result1=$db->query($sql))
 }
 
 while ($row1=$result1->fetch_assoc()) {
-	echo  "<br><br><a class=\"button stroke animate-intro\" href=\"".$row1['save_path']."\">".$row1['file_name']."</a>
-					<h5 class=\"stroke animate-intro\" style=\"display:inline;z-index:1500;\">Size: ".$row1['file_size']."</h5>" ;}
+	//echo  "<br><br><a class=\"button stroke animate-intro\" href=\"".$row1['save_path']."\">".$row1['file_name']."</a>
+	//				<h5 class=\"stroke animate-intro\" style=\"display:inline;z-index:1500;\">Size: ".$row1['file_size']."</h5>" ;}
+	echo  "<br><br><a class=\"\" href=\"".$row1['save_path']."\">".$row1['file_name']."</a>
+	      <h5 class=\"\" style=\"display:inline;z-index:1500;\">Size: ".$row1['file_size']."MB</h5>" ;}
 
 
 ?>
