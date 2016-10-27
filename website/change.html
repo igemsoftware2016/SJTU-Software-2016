@@ -4,7 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1"> 
-		<title>Register</title>
+		<title>Change Your Password</title>
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="static/favicon.png">
 		<link rel="stylesheet" type="text/css" href="static/login/css/normalize.css" />
@@ -18,92 +18,65 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js">
 		</script>
 		<script type="text/javascript">
-		  var xmlHttp;
 		  function test1(){
 		      var username;
 		      var pwd;
 		      var repwd;
 		      username=document.getElementById("user").value;
 		      pwd=document.getElementById("pwd").value;
-		      repwd=document.getElementById("repwd").value;
+		      newpwd=document.getElementById("newpwd").value;
+		      renewpwd=document.getElementById("renewpwd").value;
 		      if (username.length==0){
 		          alert("Please input your username");
 		          return;
 		      }
-		      if (pwd.length<6){
-			  alert("Password length can not less than 6!");
+		      if (pwd.length==0){
+		          alert("Please input your Old-password");
+		          return;
+		      }
+		      if (newpwd.length==0){
+		          alert("Please input New-Password");
+		          return;
+		      }
+		      if (renewpwd.length==0){
+		          alert("Please repeat your New-Password");
+		          return;
+		      }
+		      if (newpwd.length<6){
+			  alert("New-Password length can\'t less than 6!");
 			  return;
 		      }
-                      if (pwd!=repwd){
-			  alert("Password and Repeat-Password are different!");
+		      if (pwd==newpwd){
+			  alert("New-Password the same with Old-Password");
 			  return;
 		      }
-				      /*
-		      xmlHttp=GetXmlHttpObject();
-                      if (xmlHttp==null){
-                          alert("Browser does not support HTTP Request");
-                          return;
-                      }
-                      var url="http://www.sjtuimap.com/Interface/register.php";
-                      url = url + "?username=" + username + "&pwd=" + pwd + "&repwd=" + repwd;
-                      xmlHttp.onreadystatechange=stateChanged;
-                      xmlHttp.open("GET",url,true);
-                      xmlHttp.send(null);
-		      */
+                      if (newpwd!=renewpwd){
+			  alert("New-Password and New-Repeat-Password are different!");
+			  return;
+		      }
+		
 		      $.ajax({
-				       url: "http://www.sjtuimap.com/Interface/register.php" + "?username=" + username + "&pwd=" + pwd + "&repwd=" + repwd,
+				       url: "http://www.sjtuimap.com/Interface/change.php" + "?username=" + username + "&pwd=" + pwd + "&newpwd=" + newpwd + "&renewpwd=" + renewpwd,
 				       type: 'GET',
 				       success: function(data){
-                                           if (data["info"]=="Register Successful!"){
+                                           if (data["result"]==0){
                                               alert(data["info"]);
                                               window.location.href='http://www.sjtuimap.com/chat.html';
-                                           } else if (data["info"]=="The username you input is exist!"){
+                                           } else {
                                               alert(data["info"]);
                                            }
 				       }
 		      });
 		  }
 
-		  function stateChanged(){ 
-				       if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete"){ 
-				       var a= xmlHttp.responseText;
-				       alert(a);
-				       if(a=="Register Successful!"){ 
-				       window.location.href='http://www.sjtuimap.com/chat.html'; 
-				       }
-				       } 
-				       }
-
-		  function GetXmlHttpObject(){ 
-				       var xmlHttp=null; 
-				       try 
-				       { 
-				       // Firefox, Opera 8.0+, Safari 
-				       xmlHttp=new XMLHttpRequest(); 
-				       } 
-				       catch(e) 
-				       { 
-				       // Internet Explorer 
-				       try 
-				       { 
-				       xmlHttp=new ActiveXObject("Msxml2.XMLHTTP"); 
-				       } 
-				       catch (e) 
-				       { 
-				       xmlHttp=new ActiveXObject("Microsoft.XMLHTTP"); 
-				       } 
-				       } 
-				       return xmlHttp;
-				       }
-				       </script>
+					  </script>
 
 	</head>
 	<body>
 		<div class="container demo-1">
 			<div class="content">
 				<div id="large-header" class="large-header">
-
-                 <link href='http://fonts.googleapis.com/css?family=Raleway:200,400,800' rel='stylesheet' type='text/css'>
+				                  <link href='http://fonts.googleapis.com/css?family=Raleway:200,400,800' rel='stylesheet' type='text/css'>
                 <style>
                     input{
                         
@@ -279,21 +252,18 @@
                     }
                 </style>
 
-
-
 					<form action="" id="formOne" method="post" style="margin-top:20%;">
-						<input type="text" name="usr" id="user" placeholder="User Name"/>
-						<span id="user_pass"></span>
-						<input type="password" name="pwd" id="pwd" placeholder="Your Password"/>
-						<span id="pwd_pass"></span>
-						<input type="password" name="rpwd" id="repwd" placeholder="Repeat Your Password">
-						<input type="button" name="submit" id="submits" value="Register" onclick="test1()">
+						<input type="text" name="user" id="user" placeholder="User Name"/>
+						<input type="password" name="pwd" id="pwd" placeholder="Your Old Password"/>
+						<input type="password" name="newpwd" id="newpwd" placeholder="Your New Password">
+						<input type="password" name="renewpwd" id="renewpwd" placeholder="Repeat Your New Password">
+						<input type="button" name="submit" id="submits" value="Change!" onclick="test1()">
+						<section class="link-flip" style="">
+						  <p><a href="./chat.html" >Login Now!</a>
+						  <a href="./register.html">Register Now!</a></p>
+						</section>
 					</form>
-					<section class="link-flip" style="">
-					  <p><a href="./chat.html" >Login Now!</a>
-					    <a href="./change.html">Change My Password!</a></p>
-					</section>
-
+					
 					<canvas id="demo-canvas"></canvas>
 					<h1 class="main-title"><a href="./map.html">SJTU <span class="thin">Software</a></span></h1>
 				</div>

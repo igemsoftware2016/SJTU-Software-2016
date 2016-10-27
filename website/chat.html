@@ -35,11 +35,11 @@
 					  if (xmlhttp.readyState==4 && xmlhttp.status==200)
 						{
 						 resultfilename="http://www.sjtuimap.com/Interface/"+name.toString()+".json";
-                                  		 $.getJSON(resultfilename,function(json){
-		                                 console.log(json[0].username+json[0].password);
-		                                 localStorage.setItem("teamid",json[0].teamid);
-		                                 localStorage.setItem("login", "1");
-						 independentModeLogin(json[0].username,json[0].password);
+		$.getJSON(resultfilename,function(json){
+		console.log(json[0].username+json[0].password);
+		localStorage.setItem("team_ID",json[0].team_ID);
+		localStorage.setItem("login", "1");
+							independentModeLogin(json[0].username,json[0].password);
 						})
 						}
 
@@ -1394,7 +1394,9 @@
                     <input name="submit" type="button" value="Login" id="submit" onclick="loadXMLDoc()"> 
 
                     <section class="link-flip" style="">
-                        <p><a href="./register.html" target="_blank" >Register Now!</a></p>
+                        <p>
+                        <a href="./register.html">Register Now!</a>
+                        <a href="./change.html">Change Your Password!</a></p>
                     </section>
 
                 </form>

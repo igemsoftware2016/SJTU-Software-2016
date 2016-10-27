@@ -21,14 +21,14 @@ if (!$result=$db->query($sql))
 $paper="";
 while ($row=$result->fetch_assoc()) 
     $teamid= $row['Team_ID'];
-$sql="select * from Papers where team_id='$team_id'";
+$sql="select * from Papers where team_id=\"{$teamid}\"";
 if (!$result=$db->query($sql))
 {
     die("There was an error running the query [".$db->error."]");
 }
-while ($row=$result->fetch_assoc()) 
+while ($row=$result->fetch_assoc()){ 
     $paper=$paper.$row['file_name']." <br />";
-
+}
 echo $paper;
 
 ?>

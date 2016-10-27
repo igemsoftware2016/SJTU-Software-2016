@@ -36,7 +36,7 @@ if (!$result=$db->query($sql_school))
 }
 else
 	while ($row=$result->fetch_assoc()) {
-	$schoolname=$row['Name'];}
+	$schoolname=$row['School_Name'];}
 
 $sql_area="select * from Areas where Area_ID = '$areaid'";
 if (!$result=$db->query($sql_area))
