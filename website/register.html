@@ -18,7 +18,21 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js">
 		</script>
 		<script type="text/javascript">
-		  var xmlHttp;
+		  function add_to_server(username){
+		      var flag=false;
+		      return $.ajax({
+		          url: "https://console.tim.qq.com/v4/im_open_login_svc/account_import?usersig=eJw9z1FvgjAUBeC-Ynhetl4KIkt8IAYEnZoMXNxemmrLvBpoUzuDLv73CYa9ni*559xfp3jLn-lup35qy*xFS*d14BDnadDBWZoTqrrNXAI*uMTr6SSOjGuNokXwCCFAR8Hon-G7hUW8nmSRKmarJE-Corqq2ZHaT-1yVgsZ7w8hcNiusutS0-Qy36YRxpERaG04JTWZ5msqgvcSkv1Hk02aecqXX-n95kaF3BzAG-d1KGRtsURp2lYuKqyht24l45ZR043tc4uVfIwPAj8Alw57kY1GIxkv7eMeBZ8O7x86tz9EiVim&identifier=admin1&sdkappid=1400013878&random=99999999&contenttype=json",
+                          type: 'POST',
+                          data: JSON.stringify({ 'Identifier': username }),
+                          success:function(data){
+		              var dataJson = JSON.parse(data); 
+		              if (dataJson["ActionStatus"]=="OK"){
+		                  return true;
+		              }
+                          }
+                      });
+                      return flag;
+		  }
 		  function test1(){
 		      var username;
 		      var pwd;
@@ -54,7 +68,7 @@
 				       url: "http://www.sjtuimap.com/Interface/register.php" + "?username=" + username + "&pwd=" + pwd + "&repwd=" + repwd,
 				       type: 'GET',
 				       success: function(data){
-                                           if (data["info"]=="Register Successful!"){
+                                           if (data["info"]=="Register Successful!" && add_to_server(username)){
                                               alert(data["info"]);
                                               window.location.href='http://www.sjtuimap.com/chat.html';
                                            } else if (data["info"]=="The username you input is exist!"){
