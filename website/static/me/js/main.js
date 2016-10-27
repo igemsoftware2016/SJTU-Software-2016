@@ -77,7 +77,7 @@ $(document).ready(function() {
     });
 
 
-    var teamId = localStorage.getItem("team_id");
+    var teamId = localStorage.getItem("teamid");
     // var pn = '';
     // var no = '';
     // var Location = '';

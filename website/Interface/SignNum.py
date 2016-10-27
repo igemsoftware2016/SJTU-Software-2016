@@ -121,7 +121,7 @@ def calc(accounts):
     d = dict()
     d["username"] = accounts
     d["password"] = sig
-    d["team_id"] = str(team_id)
+    d["teamid"] = str(team_id)
     d["team_name"] = team_name
     result = json.dumps(d)
     files = open(accounts+".json","w")

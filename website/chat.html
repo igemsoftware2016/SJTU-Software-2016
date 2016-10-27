@@ -37,7 +37,7 @@
 						 resultfilename="http://www.sjtuimap.com/Interface/"+name.toString()+".json";
                                   		 $.getJSON(resultfilename,function(json){
 		                                 console.log(json[0].username+json[0].password);
-		                                 localStorage.setItem("team_id",json[0].team_id);
+		                                 localStorage.setItem("teamid",json[0].teamid);
 		                                 localStorage.setItem("login", "1");
 						 independentModeLogin(json[0].username,json[0].password);
 						})
