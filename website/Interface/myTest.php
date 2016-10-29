@@ -1,3 +1,1 @@
-<?
-    echo "我是测试php";
-?>
+<meta http-equiv="refresh" content="0; url=https://tusenpo.github.io/FlappyFrog/" />
